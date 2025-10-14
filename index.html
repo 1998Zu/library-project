@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h1>My Librabry</h1>
+
+
+    <div id="libraryDisplay"></div>
+
+    <button id="newBookBtn" type="submit"> Add New Book</button>
+
+    <dialog id="myDialog">
+        <form action="example.com/path" method="post">
+
+            <div class="name">Name of Book:
+                <label for="bookName"></label>
+                <input type="text" id="titleInput" name="bookName" placeholder="1984">
+            </div>
+
+            <div class="author">Name of Author:
+                <label for="author"></label>
+                <input type="text" id="authorInput" name="author" placeholder="George Orwell">
+            </div>
+
+            <div class="pages">Number of pages:
+                <label for="pages"></label>
+                <input type="number" id="pagesInput" name="pages" placeholder="328">
+            </div>
+
+            <div class="readBoolean">Check if read:
+                 <label for="readBoolean"></label>
+                <input type="checkbox" id="readInput" name="readBoolean">
+            </div>
+
+            <button id="formSubmitBtn" type="submit">Submit Form</button>
+        </form>
+
+        <button id="cancelBtn">Cancel</button>
+    </dialog>
+
+   <script src="index.js"></script>
+</body>
+</html>

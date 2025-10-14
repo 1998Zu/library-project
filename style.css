@@ -1,0 +1,85 @@
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #ff5f5f;
+    font-size: 1em;
+}
+
+h1 {
+    text-align: center;
+}
+
+#libraryDisplay {
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.bookCard {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.bookCard h2 {
+    font-size: 1.5em;
+    margin-top: 10px;
+}
+
+.bookCard p {
+    margin: 5px 0;
+}
+
+button {
+    padding: 10px;
+    font-size: 1.2em;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: blueviolet;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    display: flex;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    font-size: 1.2em;
+    height: 2rem;
+    width: 15rem;
+    
+}
+
+#formSubmitBtn {
+    font-size: 1rem;
+    background-color: green;
+    padding: 5px;
+    height: 3rem;
+    width: 10rem;
+}
+
+#cancelBtn {
+    background-color: grey;
+    padding: 5px;
+    border: 1px solid black;
+    height: 3rem;
+    width: 10rem;
+}
+
+.removeBtn {
+    background-color: crimson;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.toggleBtn {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
