@@ -1,75 +1,8 @@
-let myLibrary = [];
 const newBookBtn = document.getElementById("newBookBtn");
-const closeDialog = document.getElementById("cancelBtn");
 const dialog = document.getElementById("myDialog");
+const closeDialog = document.getElementById("cancelBtn")
 const myForm = document.querySelector("form");
 
-
-function Book(title, author, pages, read){
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-}
-
-Book.prototype.toggleRead = function() {
-    this.read = !this.read;
-}
-
-function addBookToLibrary(title, author, pages, read) {
-    const newBook = new Book(title, author, pages, read);
-    myLibrary.push(newBook);
-    displayBooks();
-
-    return newBook;
-}
-
-
-
-function displayBooks() {
-    const libraryDisplay = document.getElementById("libraryDisplay")
-    libraryDisplay.innerHTML = "";
-
-    myLibrary.forEach((book) => {
-        const card = document.createElement("div");
-        card.classList.add("bookCard");
-        card.setAttribute("data-id", book.id);
-
-        card.innerHTML = `
-        <h2>${book.title}</h2>
-        <p><strong>Author:</strong>${book.author}</p>
-        <p><strong>Pages:</strong>${book.pages}</p>
-        <p><strong>Read:</strong>${book.read ? "Yes": "No"}</p>`;  
-        
-        const toggleBtn = document.createElement("button");
-        toggleBtn.textContent = book.read ? "Mark as Unread" : "Mark as Read";
-        toggleBtn.classList.add("toggleBtn");
-
-        toggleBtn.addEventListener("click", () => {
-            book.toggleRead();
-
-            displayBooks();
-        })
-
-        card.appendChild(toggleBtn);
-
-       
-        
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Remove";
-        removeBtn.classList.add("removeBtn");
-
-        removeBtn.addEventListener("click", () => {
-            removeBook(book.id);
-        });
-
-        card.appendChild(removeBtn);
-        
-       libraryDisplay.appendChild(card); 
-
-    });
-}
 
 newBookBtn.addEventListener("click", () => {
     dialog.show();
@@ -80,25 +13,99 @@ closeDialog.addEventListener("click", () => {
 });
 
 
+
+
+
+let myLibrary = [];
+
+class Book {
+
+    constructor(){
+        this.books = [];
+    }
+
+    addBooks(title, author, pages, isRead){
+        const newBook = {
+            id: crypto.randomUUID(),
+            title,
+            author,
+            pages,
+            isRead
+        };
+        this.books.push(newBook)
+        this.displayBook();
+    }
+
+    toggleRead(bookId){
+        const book = this.books.find(book => book.id === bookId);
+        if(book){
+            book.isRead = !book.isRead;
+            this.displayBook();
+        }
+    }
+
+    removeBook(bookId){
+        this.books = this.books.filter(book => book.id !== bookId);
+        this.displayBook();
+    }
+
+    displayBook(){
+        const libraryDisplay = document.getElementById("libraryDisplay");
+        libraryDisplay.innerHTML = "";
+
+        this.books.forEach(book => {
+            const card = document.createElement("div");
+            card.classList.add("bookCard");
+            card.setAttribute("data-id", book.id);
+
+            card.innerHTML = `
+            <h2>${book.title}</h2>
+            <p><strong>Author:</strong>${book.author}</p>
+            <p><strong>Pages:</strong>${book.pages}</p>
+            <p><strong>Read:</strong>${book.isRead ? "Yes": "No"}</p>`;  
+
+            const toggleBtn = document.createElement("button");
+            toggleBtn.textContent = book.isRead ? "Mark as Unread" : "Mark as Read";
+            toggleBtn.classList.add("toggleBtn");
+
+            toggleBtn.addEventListener("click", () => {
+                this.toggleRead(book.id);
+            })
+
+            card.appendChild(toggleBtn);
+
+
+            const removeBtn = document.createElement("button");
+            removeBtn.textContent = "Remove";
+            removeBtn.classList.add("removeBtn");
+
+            removeBtn.addEventListener("click", () => {
+                this.removeBook(book.id);
+            });
+
+            card.appendChild(removeBtn);            
+
+           libraryDisplay.appendChild(card); 
+    
+        }) 
+    }
+}
+
+let library = new Book();
+
 myForm.addEventListener("submit", function(event) {
     event.preventDefault();
-    
+
     const title = document.getElementById("titleInput").value;
     const author = document.getElementById("authorInput").value;
     const pages = document.getElementById("pagesInput").value;
-    const read = document.getElementById("readInput").checked;
+    const isRead = document.getElementById("readInput").checked;
 
-    addBookToLibrary(title, author, pages, read);
-
+    library.addBooks(title, author, pages, isRead);
+   
     dialog.close();
     myForm.reset();
 });
-
-function removeBook(id) {
-    myLibrary = myLibrary.filter(book => book.id !== id);
-
-    displayBooks();
-}
 
 
 
